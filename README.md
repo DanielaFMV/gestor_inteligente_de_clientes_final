@@ -171,4 +171,4 @@ Consulta los entregables para documentación detallada:
 
 ---
 
-**¡Éxito en tu aprendizaje de POO! 🚀**
+
