@@ -37,6 +37,11 @@ class ClienteCorporativo(Cliente):
     def get_credito_disponible(self):
         return self._limite_credito - self._credito_utilizado
 
+    def verificar_credito_disponible(self, monto):
+        """Verifica si hay suficiente crédito disponible para el monto solicitado."""
+        validar_monto(monto)
+        return self.get_credito_disponible() >= monto
+
     def set_limite_credito(self, limite):
         validar_monto(limite)
         self._limite_credito = limite
@@ -88,3 +93,4 @@ class ClienteCorporativo(Cliente):
     def __str__(self):
         return (f"Cliente Corporativo: {self._nombre_empresa} | "
                 f"{self.get_email()} | Crédito disponible: ${self.get_credito_disponible()}")
+
