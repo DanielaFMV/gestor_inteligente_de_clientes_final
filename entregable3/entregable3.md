@@ -1,58 +1,64 @@
-# Entregable 3: Diagramas de Clase UML
+# Entregable 3: Diagramas de Clase con PlantUML
 
-**Estudiante:** Daniela Muñoz Vásquez 
+**Estudiante:** Daniela Muñoz Vásquez
 **Proyecto:** Gestor Inteligente de Clientes (GIC)  
 **Empresa:** SolutionTech  
 **Fecha:** Febrero 2026
 
 ---
 
-## 1. ¿Qué es UML?
+## 1. ¿Qué es PlantUML?
 
-**UML (Unified Modeling Language)** es un lenguaje de modelado visual estándar utilizado para especificar, visualizar, construir y documentar los artefactos de un sistema de software. Fue creado para proporcionar una forma común de representar sistemas orientados a objetos.
+**PlantUML** es una herramienta de código abierto que permite crear diagramas UML a partir de un lenguaje de texto simple. Utiliza la notación estándar UML (Unified Modeling Language) para generar diagramas de manera automática y reproducible.
 
-### 1.1 Propósito de UML
+### 1.1 Propósito de PlantUML
 
-- **Visualización:** Permite ver el sistema de manera gráfica
-- **Especificación:** Define la estructura y comportamiento del sistema
-- **Construcción:** Guía la implementación del código
-- **Documentación:** Sirve como referencia para el equipo de desarrollo
+- **Visualización:** Genera diagramas UML de manera automática desde texto
+- **Especificación:** Define la estructura y comportamiento del sistema en código
+- **Construcción:** Guía la implementación mediante diagramas claros
+- **Documentación:** Sirve como referencia versionable para el equipo
 
-### 1.2 Tipos de Diagramas UML
+### 1.2 Ventajas de PlantUML
 
-UML incluye varios tipos de diagramas, clasificados en:
+**Beneficios principales:**
+- Sintaxis basada en texto, fácil de aprender
+- Puede versionarse con Git junto al código fuente
+- Genera múltiples formatos (PNG, SVG, PDF)
+- Integración con editores e IDEs
+- Diagramas consistentes y estandarizados
+- Actualización rápida sin necesidad de herramientas gráficas
 
-**Diagramas Estructurales:**
+**Tipos de diagramas soportados:**
 - Diagrama de Clases (el que usaremos)
-- Diagrama de Objetos
-- Diagrama de Componentes
-- Diagrama de Despliegue
-
-**Diagramas de Comportamiento:**
 - Diagrama de Casos de Uso
 - Diagrama de Secuencia
 - Diagrama de Actividades
 - Diagrama de Estados
+- Diagrama de Componentes
 
-## 2. Diagrama de Clases
+## 2. Diagrama de Clases en PlantUML
 
-El **Diagrama de Clases** es el diagrama UML más utilizado y muestra la estructura estática del sistema mediante clases, atributos, métodos y relaciones.
+El **Diagrama de Clases** muestra la estructura estática del sistema mediante clases, atributos, métodos y relaciones.
 
-### 2.1 Componentes de una Clase
+### 2.1 Sintaxis Básica de una Clase
 
-Una clase en UML se representa con un rectángulo dividido en tres secciones:
+En PlantUML, una clase se define con la palabra clave `class`:
 
+```plantuml
+class NombreClase {
+    - atributo1: tipo
+    - atributo2: tipo
+    --
+    + metodo1(): tipo
+    + metodo2(): tipo
+}
 ```
-┌─────────────────────┐
-│   NombreClase       │  ← Nombre de la clase
-├─────────────────────┤
-│ - atributo1: tipo   │  ← Atributos
-│ - atributo2: tipo   │
-├─────────────────────┤
-│ + metodo1(): tipo   │  ← Métodos
-│ + metodo2(): tipo   │
-└─────────────────────┘
-```
+
+**Elementos:**
+- `class` declara la clase
+- Los atributos se listan primero
+- `--` separa atributos de métodos
+- Los métodos se listan después
 
 ### 2.2 Visibilidad de Atributos y Métodos
 
@@ -63,18 +69,28 @@ Los símbolos indican el nivel de acceso:
 - `#` **Protegido:** Accesible en la clase y sus subclases
 - `~` **Paquete:** Accesible dentro del mismo paquete
 
+**Ejemplo en PlantUML:**
+```plantuml
+class Cliente {
+    - _nombre: str
+    - _email: str
+    + get_nombre(): str
+    + set_email(email: str)
+}
+```
+
 ### 2.3 Tipos de Datos
 
-Los atributos y métodos especifican su tipo:
+Los atributos y métodos especifican su tipo después de dos puntos:
 
-```
+```plantuml
 - nombre: str
 - edad: int
 - activo: bool
 + calcular_descuento(): float
 ```
 
-## 3. Relaciones entre Clases
+## 3. Relaciones entre Clases en PlantUML
 
 Las relaciones definen cómo las clases interactúan entre sí.
 
@@ -82,15 +98,12 @@ Las relaciones definen cómo las clases interactúan entre sí.
 
 Representa una relación "es un" donde una clase hija hereda de una clase padre.
 
-**Notación:** Flecha con punta triangular blanca apuntando al padre
+**Sintaxis PlantUML:** `<|--`
 
-```
-    Cliente
-       △
-       │
-   ┌───┴───┐
-   │       │
-ClienteReg ClientePrem
+```plantuml
+Cliente <|-- ClienteRegular
+Cliente <|-- ClientePremium
+Cliente <|-- ClienteCorporativo
 ```
 
 **Características:**
@@ -107,10 +120,10 @@ ClienteReg ClientePrem
 
 Representa una relación "contiene" donde una clase es parte fundamental de otra. Si el todo se destruye, las partes también.
 
-**Notación:** Rombo negro en el lado del "todo"
+**Sintaxis PlantUML:** `*--`
 
-```
-Pedido ◆─────── LineaPedido
+```plantuml
+Pedido *-- LineaPedido
 ```
 
 **Características:**
@@ -126,10 +139,10 @@ Pedido ◆─────── LineaPedido
 
 Representa una relación "tiene un" donde una clase contiene a otra, pero pueden existir independientemente.
 
-**Notación:** Rombo blanco en el lado del contenedor
+**Sintaxis PlantUML:** `o--`
 
-```
-Empresa ◇─────── Empleado
+```plantuml
+Empresa o-- Empleado
 ```
 
 **Características:**
@@ -145,10 +158,10 @@ Empresa ◇─────── Empleado
 
 Representa una relación general entre clases.
 
-**Notación:** Línea simple
+**Sintaxis PlantUML:** `--`
 
-```
-Cliente ─────── Pedido
+```plantuml
+Cliente "1" -- "0..*" Pedido
 ```
 
 **Multiplicidad:**
@@ -160,20 +173,14 @@ Se indica cuántos objetos participan en la relación:
 - `1..*` : Uno o más
 - `n..m` : Entre n y m
 
-**Ejemplo:**
-```
-Cliente 1 ─────── 0..* Pedido
-```
-Un cliente tiene cero o más pedidos.
-
 ### 3.5 Dependencia
 
 Indica que una clase usa a otra temporalmente.
 
-**Notación:** Flecha punteada
+**Sintaxis PlantUML:** `..>`
 
-```
-Cliente ┄┄┄> ValidacionEmail
+```plantuml
+Cliente ..> validaciones_simple : <<usa>>
 ```
 
 **Características:**
@@ -196,8 +203,10 @@ El sistema GIC tiene la siguiente jerarquía:
 - `ClienteCorporativo`: Cliente empresarial con condiciones especiales
 
 **Clases de Soporte:**
-- `Validaciones`: Funciones para validar datos
+- `validaciones_simple`: Funciones para validar datos
 - `GestorClientes`: Gestiona la colección de clientes
+- `SistemaLogs`: Registra eventos del sistema
+- `PersistenciaJSON`: Guarda y carga datos
 
 ### 4.2 Atributos por Clase
 
@@ -211,76 +220,98 @@ El sistema GIC tiene la siguiente jerarquía:
 
 **ClienteRegular:**
 ```
-- fecha_registro: date
+- _fecha_registro: date
 ```
 
 **ClientePremium:**
 ```
-- nivel_membresia: str
-- descuento: float
-- puntos_acumulados: int
+- _nivel_membresia: str
+- _descuento: float
+- _puntos_acumulados: int
 ```
 
 **ClienteCorporativo:**
 ```
-- nombre_empresa: str
-- rut_empresa: str
-- contacto_principal: str
-- limite_credito: float
+- _nombre_empresa: str
+- _rut_empresa: str
+- _contacto_principal: str
+- _limite_credito: float
+- _credito_utilizado: float
 ```
 
 ### 4.3 Métodos por Clase
 
 **Cliente:**
 ```
-+ mostrar_informacion(): void
-+ actualizar_email(email: str): void
-+ actualizar_telefono(telefono: str): void
-+ actualizar_direccion(direccion: str): void
++ __init__(nombre, email, telefono, direccion)
++ get_nombre(): str
++ get_email(): str
++ get_telefono(): str
++ get_direccion(): str
++ set_nombre(nombre: str)
++ set_email(email: str)
++ set_telefono(telefono: str)
++ set_direccion(direccion: str)
++ mostrar_informacion()
 + obtener_resumen(): dict
 ```
 
 **ClientePremium:**
 ```
-+ calcular_descuento(monto: float): float
-+ agregar_puntos(puntos: int): void
++ get_nivel_membresia(): str
++ get_descuento(): float
++ get_puntos_acumulados(): int
++ agregar_puntos(puntos: int)
 + canjear_puntos(puntos: int): bool
++ calcular_descuento(monto: float): float
 ```
 
 **ClienteCorporativo:**
 ```
++ get_nombre_empresa(): str
++ get_credito_disponible(): float
 + verificar_credito_disponible(monto: float): bool
-+ actualizar_limite_credito(nuevo_limite: float): void
++ utilizar_credito(monto: float): bool
++ pagar_credito(monto: float)
++ calcular_descuento(monto: float): float
 ```
 
 ### 4.4 Relaciones en el GIC
 
 1. **Herencia:**
-   - `ClienteRegular` hereda de `Cliente`
-   - `ClientePremium` hereda de `Cliente`
-   - `ClienteCorporativo` hereda de `Cliente`
+   ```plantuml
+   Cliente <|-- ClienteRegular
+   Cliente <|-- ClientePremium
+   Cliente <|-- ClienteCorporativo
+   ```
 
 2. **Composición:**
-   - `GestorClientes` contiene una lista de `Cliente`
+   ```plantuml
+   GestorClientes *-- Cliente
+   ```
    - Si el gestor se destruye, la colección también
 
 3. **Dependencia:**
-   - Todas las clases de cliente dependen de `Validaciones`
-   - `GestorClientes` depende de las clases de cliente
+   ```plantuml
+   Cliente ..> validaciones_simple : <<usa>>
+   ```
+   - Todas las clases de cliente dependen de validaciones
 
-## 5. Beneficios del Diagrama de Clases
+## 5. Beneficios de PlantUML
 
 ### 5.1 Para el Desarrollo
 
 - **Planificación:** Permite diseñar antes de programar
 - **Comunicación:** Facilita el entendimiento entre el equipo
 - **Documentación:** Sirve como referencia permanente
+- **Versionamiento:** Se integra con Git como código fuente
 
 ### 5.2 Para el Mantenimiento
 
 - **Claridad:** Muestra la estructura completa del sistema
 - **Modificaciones:** Ayuda a identificar impactos de cambios
 - **Escalabilidad:** Facilita agregar nuevas funcionalidades
+- **Actualización:** Rápida modificación del diagrama editando texto
 
 ### 5.3 Para Nuevos Desarrolladores
 
@@ -288,60 +319,101 @@ El sistema GIC tiene la siguiente jerarquía:
 - **Onboarding:** Reducen el tiempo de adaptación
 - **Referencia:** Consultan el diagrama cuando tienen dudas
 
-## 6. Buenas Prácticas
+## 6. Buenas Prácticas con PlantUML
 
 ### 6.1 Al Diseñar Diagramas
 
 1. **Simplicidad:** No incluir todo en un solo diagrama
 2. **Claridad:** Nombres descriptivos y concisos
-3. **Consistencia:** Usar convenciones estándar
+3. **Consistencia:** Usar convenciones estándar de UML
 4. **Actualización:** Mantener sincronizado con el código
+5. **Comentarios:** Usar `'` para comentarios en el archivo .puml
 
 ### 6.2 Al Implementar
 
 1. **Seguir el diseño:** El código debe reflejar el diagrama
-2. **Documentar cambios:** Actualizar el diagrama cuando se modifica el código
+2. **Documentar cambios:** Actualizar el .puml cuando se modifica el código
 3. **Validar relaciones:** Verificar que las relaciones sean correctas
+4. **Versionar:** Incluir archivos .puml en el control de versiones
 
-## 7. Herramientas para UML
+## 7. Uso de PlantUML
 
-### 7.1 Herramientas de Diagramación
+### 7.1 Herramientas y Editores
 
-- **PlantUML:** Basada en texto, integración con código, generación de imágenes
-- **Draw.io (diagrams.net):** Gratuita, basada en web, interfaz visual
-- **Lucidchart:** Colaborativa, plantillas predefinidas
-- **StarUML:** Profesional, muchas funcionalidades
+**Editores con soporte PlantUML:**
+- **VS Code:** Extensión "PlantUML"
+- **IntelliJ IDEA / PyCharm:** Soporte nativo
+- **Atom:** Paquete "plantuml-viewer"
+- **Sublime Text:** Paquete "PlantUML"
 
-### 7.2 Formato del Proyecto
+**Visualización online:**
+- PlantUML Online Server: https://www.plantuml.com/plantuml/uml/
+- PlantText: https://www.planttext.com/
 
-Para este proyecto utilizamos **PlantUML** porque:
-- Sintaxis estándar de UML
-- Puede versionarse como código fuente
-- Genera imágenes de alta calidad (PNG, SVG, PDF)
-- Ampliamente usado en la industria
-- Integración con múltiples editores y IDEs
+### 7.2 Generación de Imágenes
+
+PlantUML puede generar varios formatos:
+
+```bash
+# Generar PNG
+plantuml diagrama_clases.puml
+
+# Generar SVG
+plantuml -tsvg diagrama_clases.puml
+
+# Generar PDF
+plantuml -tpdf diagrama_clases.puml
+```
+
+### 7.3 Sintaxis Básica del Archivo .puml
+
+Estructura típica de un archivo PlantUML:
+
+```plantuml
+@startuml
+title Título del Diagrama
+
+' Configuración de estilo
+skinparam classAttributeIconSize 0
+
+' Definición de clases
+class Cliente {
+    - _nombre: str
+    + get_nombre(): str
+}
+
+' Definición de relaciones
+Cliente <|-- ClienteRegular
+
+' Notas explicativas
+note right of Cliente
+  Clase base del sistema
+end note
+
+@enduml
+```
 
 ## 8. Lectura del Diagrama GIC
 
-Para entender el diagrama del GIC:
+Para entender el diagrama PlantUML del GIC:
 
 1. **Identificar la jerarquía:** Cliente es la clase base
-2. **Observar herencias:** Las tres subclases heredan de Cliente
-3. **Revisar atributos:** Cada clase tiene sus propios atributos
+2. **Observar herencias:** Las tres subclases heredan de Cliente (`<|--`)
+3. **Revisar atributos:** Cada clase tiene sus propios atributos privados (`-`)
 4. **Analizar métodos:** Métodos comunes en la base, específicos en subclases
-5. **Entender relaciones:** Composición con GestorClientes, dependencia con Validaciones
+5. **Entender relaciones:** Composición con GestorClientes (`*--`), dependencia con validaciones (`..>`)
 
 ## 9. Conclusión
 
-El Diagrama de Clases UML es una herramienta fundamental para diseñar y documentar sistemas orientados a objetos. Para el proyecto GIC, el diagrama muestra claramente la estructura de herencia que permite reutilizar código mientras se especializan comportamientos para diferentes tipos de clientes.
+PlantUML es una herramienta fundamental para diseñar y documentar sistemas orientados a objetos de manera reproducible y versionable. Para el proyecto GIC, el diagrama PlantUML muestra claramente la estructura de herencia que permite reutilizar código mientras se especializan comportamientos para diferentes tipos de clientes.
 
-Este diseño facilita la implementación del código, el mantenimiento del sistema y la comprensión por parte de todo el equipo de desarrollo.
+Este diseño basado en texto facilita la implementación del código, el mantenimiento del sistema, la comprensión por parte de todo el equipo de desarrollo, y permite mantener la documentación sincronizada con el código fuente.
 
 ---
 
 ## 10. Referencias
 
+- PlantUML Official Documentation: https://plantuml.com/
+- PlantUML Class Diagram: https://plantuml.com/class-diagram
 - OMG UML Specification: https://www.omg.org/spec/UML/
-- Martin Fowler - UML Distilled
-- PlantUML Documentation: https://plantuml.com/
-- Diagrama PlantUML del GIC: `diagrama_clases_gic.puml`
+- Diagrama PlantUML del GIC: `diagrama_clases.puml`
