@@ -1,6 +1,6 @@
 # Entregable 3: Diagramas de Clase UML
 
-**Estudiante:** [Tu Nombre]  
+**Estudiante:** Daniela Muñoz Vásquez 
 **Proyecto:** Gestor Inteligente de Clientes (GIC)  
 **Empresa:** SolutionTech  
 **Fecha:** Febrero 2026
