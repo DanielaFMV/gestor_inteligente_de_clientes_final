@@ -1,6 +1,6 @@
 # Entregable 2: POO en Python - Encapsulación y Validaciones
 
-**Estudiante:** [Tu Nombre]  
+**Estudiante:** Daniela Muñoz Vásquez  
 **Proyecto:** Gestor Inteligente de Clientes (GIC)  
 **Empresa:** SolutionTech  
 **Fecha:** Febrero 2026
