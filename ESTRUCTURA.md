@@ -16,7 +16,7 @@ gestor_inteligente_de_clientes/
 ├── entregable3/              # Entregable 3: Diagramas UML
 │   ├── README.md
 │   ├── entregable3.md
-│   └── diagramas_uml.md
+│   └── diagramas_uml.puml
 │
 ├── entregable4/              # Entregable 4: Herencia y Polimorfismo
 │   ├── README.md
