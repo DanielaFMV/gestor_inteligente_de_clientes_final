@@ -1,0 +1,165 @@
+@startuml Diagrama_Clases_GIC
+title Gestor Inteligente de Clientes - Diagrama de Clases UML
+'Proyecto: GIC Sistema de Gestión
+'Empresa: SolutionTech
+'Fecha: Febrero 2026
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+}
+
+' ====================================================================
+' CLASE BASE: Cliente
+' ====================================================================
+class Cliente {
+    - _nombre: str
+    - _email: str
+    - _telefono: str
+    - _direccion: str
+    --
+    + __init__(nombre, email, telefono, direccion)
+    + get_nombre(): str
+    + get_email(): str
+    + get_telefono(): str
+    + get_direccion(): str
+    + set_nombre(nombre: str)
+    + set_email(email: str)
+    + set_telefono(telefono: str)
+    + set_direccion(direccion: str)
+    + mostrar_informacion()
+    + obtener_resumen(): dict
+}
+
+' ====================================================================
+' CLASES HIJAS: Herencia de Cliente
+' ====================================================================
+
+class ClienteRegular {
+    - _fecha_registro: date
+    --
+    + get_fecha_registro(): date
+    + set_fecha_registro(fecha: date)
+    + calcular_descuento(monto: float): float
+    + mostrar_informacion()
+}
+
+class ClientePremium {
+    - _nivel_membresia: str
+    - _descuento: float
+    - _puntos_acumulados: int
+    --
+    + get_nivel_membresia(): str
+    + get_descuento(): float
+    + get_puntos_acumulados(): int
+    + set_nivel_membresia(nivel: str)
+    + set_descuento(descuento: float)
+    + agregar_puntos(puntos: int)
+    + canjear_puntos(puntos: int): bool
+    + calcular_descuento(monto: float): float
+    + mostrar_informacion()
+}
+
+class ClienteCorporativo {
+    - _nombre_empresa: str
+    - _rut_empresa: str
+    - _contacto_principal: str
+    - _limite_credito: float
+    - _credito_utilizado: float
+    --
+    + get_nombre_empresa(): str
+    + get_rut_empresa(): str
+    + get_contacto_principal(): str
+    + get_limite_credito(): float
+    + get_credito_utilizado(): float
+    + get_credito_disponible(): float
+    + verificar_credito_disponible(monto: float): bool
+    + utilizar_credito(monto: float): bool
+    + pagar_credito(monto: float)
+    + calcular_descuento(monto: float): float
+    + mostrar_informacion()
+}
+
+' ====================================================================
+' CLASES DE SOPORTE
+' ====================================================================
+
+class SistemaLogs {
+    --
+    + info(mensaje: str)
+    + error(mensaje: str)
+    + warning(mensaje: str)
+    + registrar_operacion(op, email, det)
+    + leer_logs(ultimas_lineas: int)
+}
+
+class PersistenciaJSON {
+    --
+    + guardar_cliente(cliente)
+    + guardar_multiples(lista)
+    + cargar_todos(): list
+    + cargar_objetos(): list
+    + buscar_por_email(email): dict
+    + eliminar_por_email(email): bool
+}
+
+class GestorClientes {
+    --
+    + agregar_cliente(cliente)
+    + buscar_por_email(email): Cliente
+    + buscar_por_nombre(nombre): list
+    + listar_todos(): list
+    + listar_por_tipo(tipo): list
+    + eliminar_cliente(email): bool
+    + mostrar_resumen()
+}
+
+class validaciones_simple << (F,#FF7700) funciones >> {
+    --
+    + validar_email()
+    + validar_telefono()
+    + validar_nombre()
+    + validar_direccion()
+}
+
+' ====================================================================
+' RELACIONES
+' ====================================================================
+
+' HERENCIA: Las clases hijas heredan de Cliente
+Cliente <|-- ClienteRegular
+Cliente <|-- ClientePremium
+Cliente <|-- ClienteCorporativo
+
+' COMPOSICIÓN: GestorClientes contiene Clientes
+GestorClientes *-- Cliente
+
+' DEPENDENCIA: Cliente usa las funciones de validación
+Cliente ..> validaciones_simple : <<usa>>
+
+note right of Cliente
+  Clase base que define
+  los atributos y métodos
+  comunes a todos los clientes
+end note
+
+note bottom of ClienteRegular
+  calcular_descuento() 
+  retorna 0 (sin descuento)
+end note
+
+note bottom of ClientePremium
+  calcular_descuento()
+  según porcentaje de descuento
+end note
+
+note bottom of ClienteCorporativo
+  calcular_descuento()
+  retorna 15% fijo
+end note
+
+@enduml
+
